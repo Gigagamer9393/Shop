@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexanders Verkaufsseite</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+/* --- Body & Cursor --- */
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    overflow: hidden;
+    cursor: none;
+    color: #fff;
+}
+
+/* --- Bewegter Farbverlauf-Hintergrund --- */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(270deg, #00ffe0, #203a43, #0f2027, #00ffe0);
+    background-size: 800% 800%;
+    animation: gradientMove 15s ease infinite;
+    z-index: -3;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Header --- */
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+.profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid #00ffe0;
+    object-fit: cover;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 10px #00ffe0; }
+    100% { box-shadow: 0 0 30px #00ffe0; }
+}
+
+h1 {
+    font-size: 2rem;
+    color: #00ffe0;
+    text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
+    margin: 0 20px;
+}
+
+.social-links a {
+    margin-left: 15px;
+    color: #00ffe0;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #00ffe0;
+    padding: 5px 12px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    background: #00ffe0;
+    color: #000;
+    box-shadow: 0 0 20px #00ffe0;
+}
+
+/* --- Produktkarten --- */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 90%;
+    margin: 40px 0;
+    z-index: 5;
+    position: relative;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px #00ffe0;
+}
+
+.card img {
+    max-width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid #00ffe0;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.card a:hover {
+    background: #00ffe0;
+    color: #000;
+    box-shadow: 0 0 20px #00ffe0;
+}
+
+/* --- Footer Neon Text --- */
+.footer-text {
+    margin: 40px 0 20px 0;
+    font-size: 1.2rem;
+    color: #00ffe0;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffe0, 0 0 10px #00ffe0, 0 0 20px #00ffe0;
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { text-shadow: 0 0 5px #00ffe0, 0 0 10px #00ffe0, 0 0 20px #00ffe0; }
+    100% { text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0, 0 0 40px #00ffe0; }
+}
+
+/* --- GIF-Kachel unten rechts --- */
+.gif-box {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    bottom: 20px;
+    right: 20px;
+    z-index: 20;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid #00ffe0;
+    backdrop-filter: blur(10px);
+    animation: floatUpDown 3s ease-in-out infinite alternate;
+}
+
+.gif-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes floatUpDown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+
+/* --- Animierter Neon-Cursor --- */
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(0, 255, 224, 0.7);
+    box-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0, 0 0 30px #00ffe0;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+    z-index: 9999;
+}
+
+/* --- Canvas für lilane Linien --- */
+canvas#neonLines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* --- Info Button --- */
+.info-button {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    background: rgba(0, 255, 224, 0.2);
+    border: 2px solid #00ffe0;
+    color: #00ffe0;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+    z-index: 50;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
+}
+
+.info-button:hover {
+    background: #00ffe0;
+    color: #000;
+    box-shadow: 0 0 25px #00ffe0, 0 0 40px #00ffe0;
+}
+
+.info-text {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #b300ff;
+    padding: 15px 25px;
+    border-radius: 15px;
+    color: #ff99ff;
+    font-weight: bold;
+    text-align: center;
+    z-index: 49;
+    display: none;
+    box-shadow: 0 0 15px #b300ff, 0 0 30px #ff66ff;
+}
+
+.info-text.show {
+    display: block;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<canvas id="neonLines"></canvas>
+
+<header>
+    <div style="display:flex; align-items:center;">
+        <img src="profil.gif" alt="Profilbild" class="profile-pic">
+        <h1>Alexanders Verkaufsseite</h1>
+    </div>
+    <div class="social-links">
+        <a href="https://discord.com/invite/UGqxpbrcux" target="_blank">Discord</a>
+        <a href="https://www.youtube.com/@gigarazorlp1911" target="_blank">YouTube</a>
+    </div>
+</header>
+
+<div class="products">
+    <!-- 10 Artikelkarten -->
+    <div class="card" data-tilt>
+        <img src="1.jpg" alt="Artikel 1">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-1/1234567890" target="_blank">Artikel 1 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="2.jpg" alt="Artikel 2">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-2/1234567891" target="_blank">Artikel 2 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="3.jpg" alt="Artikel 3">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-3/1234567892" target="_blank">Artikel 3 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="4.jpg" alt="Artikel 4">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-4/1234567893" target="_blank">Artikel 4 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="5.jpg" alt="Artikel 5">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-5/1234567894" target="_blank">Artikel 5 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="6.jpg" alt="Artikel 6">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-6/1234567895" target="_blank">Artikel 6 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="7.jpg" alt="Artikel 7">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-7/1234567896" target="_blank">Artikel 7 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="8.jpg" alt="Artikel 8">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-8/1234567897" target="_blank">Artikel 8 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="9.jpg" alt="Artikel 9">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-9/1234567898" target="_blank">Artikel 9 kaufen</a>
+    </div>
+    <div class="card" data-tilt>
+        <img src="10.jpg" alt="Artikel 10">
+        <a href="https://www.ebay-kleinanzeigen.de/s-anzeige/artikel-10/1234567899" target="_blank">Artikel 10 kaufen</a>
+    </div>
+</div>
+
+<div class="footer-text">
+    Herzlich willkommen auf meiner Privaten-Homepage!
+</div>
+
+<div class="gif-box">
+    <img src="mod.gif" alt="Animiertes GIF">
+</div>
+
+<!-- Info Button -->
+<div class="info-button" id="infoButton">Info hier klicken</div>
+<div class="info-text" id="infoText">
+    Gekauft wie gesehen, keine Rücknahme. <br>LG Alexander
+</div>
+
+<div class="cursor"></div>
+
+<script>
+// Cursor
+const cursor = document.querySelector('.cursor');
+document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+
+const links = document.querySelectorAll('a');
+links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        cursor.style.width = '40px';
+        cursor.style.height = '40px';
+        cursor.style.background = 'rgba(0,255,224,0.4)';
+    });
+    link.addEventListener('mouseleave', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        cursor.style.background = 'rgba(0,255,224,0.7)';
+    });
+});
+
+// Lilane Linien Animation
+const canvas = document.getElementById('neonLines');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+});
+
+class Line {
+    constructor() { this.reset(); }
+    reset() {
+        this.x = Math.random()*w;
+        this.y = Math.random()*h;
+        this.length = Math.random()*150+50;
+        this.speed = Math.random()*0.5+0.2;
+        this.alpha = Math.random()*0.5+0.3;
+    }
+    update() {
+        this.y -= this.speed;
+        if(this.y < -this.length) this.reset();
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x, this.y+this.length);
+        ctx.strokeStyle = `rgba(150,0,255,${this.alpha})`;
+        ctx.shadowColor = '#b300ff';
+        ctx.shadowBlur = 15;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+}
+
+const lines = [];
+for(let i=0;i<50;i++) lines.push(new Line());
+
+function animateLines() {
+    ctx.clearRect(0,0,w,h);
+    lines.forEach(l => { l.update(); l.draw(); });
+    requestAnimationFrame(animateLines);
+}
+animateLines();
+
+// 3D Karten Effekt
+const cards = document.querySelectorAll('[data-tilt]');
+cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY)/centerY)*10;
+        const rotateY = ((x - centerX)/centerX)*10;
+        card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+});
+
+// Hover Sound
+const hoverSound = new Audio('hover.mp3');
+hoverSound.volume = 0.3;
+cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        if(hoverSound.paused){
+            hoverSound.currentTime = 0;
+            hoverSound.play();
+        }
+    });
+    card.addEventListener('mouseleave', () => {
+        hoverSound.pause();
+        hoverSound.currentTime = 0;
+    });
+});
+
+// Info Button
+const infoButton = document.getElementById('infoButton');
+const infoText = document.getElementById('infoText');
+infoButton.addEventListener('click', () => {
+    infoText.classList.toggle('show');
+});
+</script>
+
+</body>
+</html>
